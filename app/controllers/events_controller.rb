@@ -13,11 +13,12 @@ class EventsController < ApplicationController
 
   def update
     @event = Event.find(params[:id])
-    @event.name = params[:event][:name]
-    @event.date = params[:event][:date]
-    @event.capacity = params[:event][:capacity]
-    @event.location = params[:event][:city]
-    
+    @event.update(event_params)
+    # @event.name = params[:event][:name]
+    # @event.date = params[:event][:date]
+    # @event.capacity = params[:event][:capacity]
+    # @event.city = params[:event][:city]
+
     if @event.save
       redirect_to event_url(@event)
     else
@@ -30,11 +31,14 @@ class EventsController < ApplicationController
   end
 
   def create
-    @event = Event.new
-    @event.name = params[:event][:name]
-    @event.date = params[:event][:date]
-    @event.capacity = params[:event][:capacity]
-    @event.location = params[:event][:city]
+    @event = Event.new(event_params)
+    # @event.name = params[:event][:name]
+    # date_selected = params[:event][:'date(1i)'] + params[:event][:'date(2i)'] + params[:event][:'date(3i)']
+    # @event.date = params[:event][:date]
+    # @event.date = date_selected.to_datetime
+    # @event.date
+    # @event.capacity = params[:event][:capacity]
+    # @event.city = params[:event][:city]
 
     if @event.save
       redirect_to events_url
@@ -47,6 +51,10 @@ class EventsController < ApplicationController
     @event = Event.find(params[:id])
     @event.destroy
     redirect_to events_path
+  end
+
+  def event_params
+    params.require(:event).permit(:name, :date, :capacity, :city)
   end
 
 end

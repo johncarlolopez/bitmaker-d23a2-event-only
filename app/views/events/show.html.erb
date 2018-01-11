@@ -1,1 +1,3 @@
-events#show page
+<h1>Event</h1>
+<%= link_to('Back to Events', events_path)%> | <%= link_to('Edit This Event', edit_event_path)%> | <%= link_to('Delete This Event', event_path(@event), method: :delete, data: {confirm: "Are you sure you want to delete #{@event.name} ?"})%>
+<%= render 'event', event: @event %>
